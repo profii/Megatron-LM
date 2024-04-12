@@ -1,6 +1,7 @@
 <unk>
 <s>
 </s>
+<sos>
 a
 .
 in
