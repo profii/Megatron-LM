@@ -386,9 +386,9 @@ def main():
     tokenizer = build_tokenizer(args)
 
     for key in args.json_keys:
-        output_bin_files[key] = "{}_{}_{}.bin".format(args.output_prefix,
+        output_bin_files[key] = "../../{}_{}_{}.bin".format(args.output_prefix,
                                                       key, level)
-        output_idx_files[key] = "{}_{}_{}.idx".format(args.output_prefix,
+        output_idx_files[key] = "../../{}_{}_{}.idx".format(args.output_prefix,
                                                       key, level)
         builders[key] = indexed_dataset.IndexedDatasetBuilder(
             output_bin_files[key],
