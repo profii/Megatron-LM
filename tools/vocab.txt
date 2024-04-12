@@ -1,7 +1,7 @@
 <unk>
-<pad>
+<s>
+</s>
 <sos>
-<eos>
 a
 .
 in
