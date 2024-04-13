@@ -41,14 +41,14 @@ class MNLIDataset(GLUEAbstractDataset):
                     else:
                         print_rank_0('    reading {} , {}, {}, and {} columns '
                                      '...'.format(
-                                         row[0].strip(), row[8].strip(),
-                                         row[9].strip(), row[-1].strip()))
+                                         row[0].strip(), row[1].strip(),
+                                         row[2].strip(), row[-1].strip()))
                     continue
 
-                text_a = clean_text(row[8].strip())
-                text_b = clean_text(row[9].strip())
-                unique_id = int(row[0].strip())
-                label = row[-1].strip()
+                text_a = clean_text(row[0].strip())
+                text_b = clean_text(row[1].strip())
+                unique_id = int(row[-1].strip())
+                label = row[2].strip()
                 if is_test:
                     label = self.test_label
 
