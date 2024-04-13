@@ -62,6 +62,9 @@ def initialize_megatron(
     # torch.distributed initialization
     def finish_mpu_init():
         args = get_args()
+        
+        torch.cuda.set_device(int(os.environ["LOCAL_RANK"]))
+        print('First: L_RANK', flush=True)
         # Pytorch distributed.
         _initialize_distributed()
 
@@ -84,10 +87,7 @@ def initialize_megatron(
         # to call when it has DDP initialized
         mpu.set_tensor_model_parallel_rank(args.rank)
         return finish_mpu_init
-    else:
-        torch.cuda.set_device(os.environ["LOCAL_RANK"])
-        print('First: L_RANK', flush=True)
-        
+    else:        
         # Megatron's MPU is the master. Complete initialization right away.
         finish_mpu_init()
 
