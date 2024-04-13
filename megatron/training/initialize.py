@@ -43,9 +43,6 @@ def initialize_megatron(
 
     # Parse arguments
     args = parse_args(extra_args_provider, ignore_unknown_args)
-    if args.rank == 0:
-        print("> set_device 0 ...", flush=True)
-        torch.cuda.set_device(args.local_rank)
 
     if args.use_checkpoint_args or args_defaults.get("use_checkpoint_args", False):
         assert args.load is not None, "--use-checkpoints-args requires --load argument"
@@ -211,7 +208,7 @@ def _initialize_distributed():
     """Initialize torch.distributed and core model parallel."""
     args = get_args()
     
-    device_count = args.world_size # torch.cuda.device_count()
+    device_count = torch.cuda.device_count() #args.world_size # 
     if torch.distributed.is_initialized():
 
         if args.rank == 0:
@@ -296,7 +293,7 @@ def _set_random_seed(seed_, data_parallel_random_init=False):
         random.seed(seed)
         np.random.seed(seed)
         torch.manual_seed(seed)
-        if args.world_size > 0: # torch.cuda.device_count() > 0:
+        if torch.cuda.device_count() > 0:
             tensor_parallel.model_parallel_cuda_manual_seed(seed)
     else:
         raise ValueError("Seed ({}) should be a positive integer.".format(seed))
