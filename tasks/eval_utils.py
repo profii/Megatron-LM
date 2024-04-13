@@ -11,7 +11,8 @@ import torch
 from megatron.training import get_args
 from megatron.training import print_rank_last, is_last_rank
 from megatron.core import mpu
-from megatron.schedules import get_forward_backward_func
+from megatron.core.pipeline_parallel.schedules import get_forward_backward_func
+# from megatron.schedules import get_forward_backward_func
 from tasks.finetune_utils import build_data_loader
 from tasks.finetune_utils import process_batch
 
