@@ -28,9 +28,7 @@ def initialize_megatron(
     ignore_unknown_args=False,
     allow_no_cuda=False,
     skip_mpu_initialization=False,
-):
-    os.environ["CUDA_VISIBLE_DEVICES"] = '0,1'
-    
+):    
     """Set global variables, initialize distributed, and
     set autoresume and random seeds.
     `allow_no_cuda` should not be set unless using megatron for cpu only
@@ -47,9 +45,9 @@ def initialize_megatron(
     args = parse_args(extra_args_provider, ignore_unknown_args)
     
     args.local_rank = int(os.environ["LOCAL_RANK"])
-    if args.rank == 0:
-        print("> set_device 0 ...", flush=True)
-        torch.cuda.set_device(args.local_rank)
+    # if args.rank == 0:
+    #     print("> set_device 0 ...", flush=True)
+    #     torch.cuda.set_device(args.local_rank)
         
     if args.use_checkpoint_args or args_defaults.get("use_checkpoint_args", False):
         assert args.load is not None, "--use-checkpoints-args requires --load argument"
