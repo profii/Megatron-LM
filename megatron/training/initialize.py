@@ -229,7 +229,7 @@ def _initialize_distributed():
         if device_count > 0:
             device = args.rank % device_count
             if args.local_rank is not None:
-                print("device_count: {} rank:{} local_rank {}".format(device_count, args.rank, args.local_rank), flush=True)
+                print("world_size: {} device_count: {} rank:{} local_rank {}".format(args.world_size, device_count, args.rank, args.local_rank), flush=True)
                 assert (
                     args.local_rank == device
                 ), "expected local-rank to be the same as rank % device-count."
