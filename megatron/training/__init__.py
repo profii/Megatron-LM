@@ -14,7 +14,8 @@ from .global_vars import get_one_logger
 from .global_vars import get_adlr_autoresume
 from .global_vars import get_timers
 from .initialize  import initialize_megatron
-from .training import pretrain, get_model, get_train_valid_test_num_samples, evaluate_and_print_results
+from .training import pretrain, get_model, get_train_valid_test_num_samples
+from .training import evaluate_and_print_results, setup_model_and_optimizer, train_step, training_log
 
 from .utils import (print_rank_0,
                     is_last_rank,
