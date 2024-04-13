@@ -209,7 +209,7 @@ def _initialize_distributed():
     """Initialize torch.distributed and core model parallel."""
     args = get_args()
     
-    device_count = torch.cuda.device_count()
+    device_count = args.world_size # torch.cuda.device_count()
     if torch.distributed.is_initialized():
 
         if args.rank == 0:
@@ -281,6 +281,8 @@ def _init_autoresume():
 
 
 def _set_random_seed(seed_, data_parallel_random_init=False):
+    args = get_args()
+    
     """Set random seed for reproducability."""
     if seed_ is not None and seed_ > 0:
         # Ensure that different pipeline MP stages get different seeds.
@@ -291,7 +293,7 @@ def _set_random_seed(seed_, data_parallel_random_init=False):
         random.seed(seed)
         np.random.seed(seed)
         torch.manual_seed(seed)
-        if torch.cuda.device_count() > 0:
+        if args.world_size > 0 # torch.cuda.device_count() > 0:
             tensor_parallel.model_parallel_cuda_manual_seed(seed)
     else:
         raise ValueError("Seed ({}) should be a positive integer.".format(seed))
