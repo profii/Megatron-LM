@@ -206,7 +206,9 @@ def _initialize_tp_communicators():
 def _initialize_distributed():
     """Initialize torch.distributed and core model parallel."""
     args = get_args()
-
+    
+    args.local_rank = os.environ["LOCAL_RANK"]
+    
     device_count = torch.cuda.device_count()
     if torch.distributed.is_initialized():
 
@@ -226,13 +228,12 @@ def _initialize_distributed():
         # Manually set the device ids.
         if device_count > 0:
             device = args.rank % device_count
-            if args.localrank is not None:
-                # args.localrank = os.environ["LOCAL_RANK"]
+            if args.local_rank is not None:
                 assert (
-                    args.localrank == device
+                    args.local_rank == device
                 ), "expected local-rank to be the same as rank % device-count."
             else:
-                args.localrank = device
+                args.local_rank = device
             torch.cuda.set_device(device)
         # Call the init process
         torch.distributed.init_process_group(
