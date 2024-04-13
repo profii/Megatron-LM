@@ -227,12 +227,12 @@ def _initialize_distributed():
         if device_count > 0:
             device = args.rank % device_count
             if args.local_rank is not None:
-                args.local_rank = os.environ["LOCAL_RANK"]
+                # args.local-rank = os.environ["LOCAL_RANK"]
                 assert (
-                    args.local_rank == device
+                    args.local-rank == device
                 ), "expected local-rank to be the same as rank % device-count."
             else:
-                args.local_rank = device
+                args.local-rank = device
             torch.cuda.set_device(device)
         # Call the init process
         torch.distributed.init_process_group(
