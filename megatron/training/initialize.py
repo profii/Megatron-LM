@@ -29,6 +29,8 @@ def initialize_megatron(
     allow_no_cuda=False,
     skip_mpu_initialization=False,
 ):
+    os.environ["CUDA_VISIBLE_DEVICES"] = '0,1'
+    
     """Set global variables, initialize distributed, and
     set autoresume and random seeds.
     `allow_no_cuda` should not be set unless using megatron for cpu only
