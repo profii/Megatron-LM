@@ -63,8 +63,6 @@ def initialize_megatron(
     def finish_mpu_init():
         args = get_args()
         
-        torch.cuda.set_device(int(os.environ["LOCAL_RANK"]))
-        print('First: L_RANK', flush=True)
         # Pytorch distributed.
         _initialize_distributed()
 
