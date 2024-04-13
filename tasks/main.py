@@ -71,6 +71,8 @@ def get_tasks_args(parser):
                         help='Av.rank validation: how many other negatives to'
                         ' take from each question pool')
 
+    group.add_argument('--local-rank', type=int, default=`0,
+                        help='Local-rank')
 
     return parser
 
