@@ -218,13 +218,17 @@ def _initialize_distributed():
                 "skipping initialization ...",
                 flush=True,
             )
+            
         args.rank = torch.distributed.get_rank()
         args.world_size = torch.distributed.get_world_size()
 
     else:
 
+        torch.distributed.barrier()
+        print(">>>waiting... ",flush=True,)
         if args.rank == 0:
             print("> initializing torch distributed ...", flush=True)
+            torch.cuda.set_device(args.local_rank)
         # Manually set the device ids.
         if device_count > 0:
             device = args.rank % device_count
