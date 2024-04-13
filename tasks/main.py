@@ -20,7 +20,7 @@ def get_tasks_args(parser):
     group.add_argument('--epochs', type=int, default=None,
                        help='Number of finetunning epochs. Zero results in '
                        'evaluation only.')
-    group.add_argument('--pretrained-checkpoint-dir', type=str, default=None,
+    group.add_argument('--pretrained-checkpoint', type=str, default=None,
                        help='Pretrained checkpoint used for finetunning.')
     group.add_argument('--keep-last', action='store_true',
                        help='Keep the last batch (maybe incomplete) in'
