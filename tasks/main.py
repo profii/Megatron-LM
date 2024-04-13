@@ -71,9 +71,6 @@ def get_tasks_args(parser):
                         help='Av.rank validation: how many other negatives to'
                         ' take from each question pool')
 
-    group.add_argument('--local_rank', type=int, default=int(os.environ["LOCAL_RANK"]),
-                        help='Local-rank')
-
     return parser
 
 
@@ -91,14 +88,13 @@ if __name__ == '__main__':
         from race.finetune import main
     elif args.task in ['MNLI', 'QQP']:
         from glue.finetune import main
+        torch.cuda.set_device(os.environ["LOCAL_RANK"])
     elif args.task in ['LAMBADA', 'WIKITEXT103']:
         from zeroshot_gpt.evaluate import main
     elif args.task in ['ICT-ZEROSHOT-NQ', 'RETRIEVER-EVAL']:
         from orqa.evaluate_orqa import main
     elif args.task in ['RET-FINETUNE-NQ']:
         from orqa.supervised.finetune import main
-    elif args.task in ['BLEU-FINETUNE']:
-        from bleu.finetune import main
     else:
         raise NotImplementedError('Task {} is not implemented.'.format(
             args.task))
