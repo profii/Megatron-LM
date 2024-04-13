@@ -88,7 +88,6 @@ if __name__ == '__main__':
         from race.finetune import main
     elif args.task in ['MNLI', 'QQP']:
         from glue.finetune import main
-        torch.cuda.set_device(os.environ["LOCAL_RANK"])
     elif args.task in ['LAMBADA', 'WIKITEXT103']:
         from zeroshot_gpt.evaluate import main
     elif args.task in ['ICT-ZEROSHOT-NQ', 'RETRIEVER-EVAL']:
