@@ -43,6 +43,7 @@ def initialize_megatron(
 
     # Parse arguments
     args = parse_args(extra_args_provider, ignore_unknown_args)
+    
 
     if args.use_checkpoint_args or args_defaults.get("use_checkpoint_args", False):
         assert args.load is not None, "--use-checkpoints-args requires --load argument"
@@ -84,6 +85,9 @@ def initialize_megatron(
         mpu.set_tensor_model_parallel_rank(args.rank)
         return finish_mpu_init
     else:
+        torch.cuda.set_device(os.environ["LOCAL_RANK"])
+        print('First: L_RANK', flush=True)
+        
         # Megatron's MPU is the master. Complete initialization right away.
         finish_mpu_init()
 
@@ -207,8 +211,6 @@ def _initialize_distributed():
     """Initialize torch.distributed and core model parallel."""
     args = get_args()
     
-    args.local_rank = os.environ["LOCAL_RANK"]
-    
     device_count = torch.cuda.device_count()
     if torch.distributed.is_initialized():
 
@@ -229,6 +231,7 @@ def _initialize_distributed():
         if device_count > 0:
             device = args.rank % device_count
             if args.local_rank is not None:
+                print("rank:{} local_rank {}".format(rank, local_rank), flush=True)
                 assert (
                     args.local_rank == device
                 ), "expected local-rank to be the same as rank % device-count."
