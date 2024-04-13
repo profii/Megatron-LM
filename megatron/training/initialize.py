@@ -225,14 +225,11 @@ def _initialize_distributed():
 
         if args.rank == 0:
             print("> initializing torch distributed ...", flush=True)
-            args.local_rank = int(os.environ["LOCAL_RANK"])
-            torch.cuda.set_device(args.local_rank)
-            print('First: L_RANK', flush=True)
         # Manually set the device ids.
         if device_count > 0:
             device = args.rank % device_count
             if args.local_rank is not None:
-                print("rank:{} local_rank {}".format(args.rank, args.local_rank), flush=True)
+                print("device_count: {} rank:{} local_rank {}".format(device_count, args.rank, args.local_rank), flush=True)
                 assert (
                     args.local_rank == device
                 ), "expected local-rank to be the same as rank % device-count."
