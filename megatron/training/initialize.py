@@ -43,6 +43,8 @@ def initialize_megatron(
 
     # Parse arguments
     args = parse_args(extra_args_provider, ignore_unknown_args)
+    
+    args.local_rank = int(os.environ["LOCAL_RANK"])
     if args.rank == 0:
         print("> set_device 0 ...", flush=True)
         torch.cuda.set_device(args.local_rank)
