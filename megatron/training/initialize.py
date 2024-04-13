@@ -43,7 +43,9 @@ def initialize_megatron(
 
     # Parse arguments
     args = parse_args(extra_args_provider, ignore_unknown_args)
-    
+    if args.rank == 0:
+        print("> set_device 0 ...", flush=True)
+        torch.cuda.set_device(args.local_rank)
 
     if args.use_checkpoint_args or args_defaults.get("use_checkpoint_args", False):
         assert args.load is not None, "--use-checkpoints-args requires --load argument"
@@ -226,7 +228,6 @@ def _initialize_distributed():
 
         if args.rank == 0:
             print("> initializing torch distributed ...", flush=True)
-            torch.cuda.set_device(args.local_rank)
         # Manually set the device ids.
         if device_count > 0:
             device = args.rank % device_count
