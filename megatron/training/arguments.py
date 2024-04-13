@@ -1193,7 +1193,7 @@ def _add_checkpointing_args(parser):
                        help='Load model for finetuning. Do not load optimizer '
                        'or rng state from checkpoint and set iteration to 0. '
                        'Assumed when loading a release checkpoint.')
-    group.add_argument('--pretrained-checkpoint', type=str, default=None,
+    group.add_argument('--pretrained-checkpoint-dir', type=str, default=None,
                        help='Directory containing a pretrained model checkpoint for finetuning.')
     group.add_argument('--ckpt-step', type=int, default=None,
                        help='Checkpoint step to load model from.')
