@@ -224,8 +224,6 @@ def _initialize_distributed():
 
     else:
 
-        torch.distributed.barrier()
-        print(">>>waiting... ",flush=True,)
         if args.rank == 0:
             print("> initializing torch distributed ...", flush=True)
             torch.cuda.set_device(args.local_rank)
