@@ -182,7 +182,7 @@ def _train(model, optimizer, opt_param_scheduler, forward_step,
             start_iteration = 0
 
             # Train for one step.
-            out = train_step(forward_step, batch, model, optimizer, opt_param_scheduler)
+            out = train_step(forward_step, batch, model, optimizer, opt_param_scheduler, config)
 
             losses_dict, skipped_iter, grad_norm, num_zeros_in_grad = out
             iteration += 1
