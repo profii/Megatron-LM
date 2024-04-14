@@ -612,6 +612,9 @@ def load_args_from_checkpoint(args, load_arg='load',
     _set_arg('tokenizer_type')
     _set_arg('padded_vocab_size')
     _set_arg('apply_query_key_layer_scaling', force=False) #True)
+    
+    _set_arg('attention_softmax_in_fp32', force=False)
+            
     if checkpoint_version < 3.0:
         _set_arg('tensor_model_parallel_size',
                  'model_parallel_size')
