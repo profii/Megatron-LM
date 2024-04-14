@@ -1068,10 +1068,10 @@ def _add_training_args(parser):
     group.add_argument('--sequence-parallel', action='store_true',
                        help='Enable sequence parallel optimization.')
     group.add_argument('--no-gradient-accumulation-fusion',
-                       action='store_false',
+                       action='store_true',
                        help='Disable fusing gradient accumulation to weight '
                        'gradient computation of linear layers',
-                       dest='gradient_accumulation_fusion')
+                       dest='gradient_accumulation_fusion')  # store_false
     group.add_argument('--use-mcore-models', action='store_true',
                        help='Use the implementation from megatron core')
     group.add_argument('--manual-gc', action='store_true',
