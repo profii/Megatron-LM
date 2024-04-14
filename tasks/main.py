@@ -74,12 +74,7 @@ def get_tasks_args(parser):
 
     group.add_argument('--local-rank', type=int, default=None,
                         help='Local-rank')
-    group.add_argument('--gradient-accumulation-fusion', action='store_true',
-                        help='gradient-accumulation-fusion False')
-    group.add_argument('--log_throughput', action='store_true',
-                        help='log_throughput')
-    group.add_argument('--log_timers_to_tensorboard', action='store_true',
-                        help='log_timers_to_tensorboard')
+
 
     return parser
 
