@@ -775,8 +775,8 @@ def _add_logging_args(parser):
                        help='If set, calculate and log parameters norm.')
     group.add_argument('--log-num-zeros-in-grad', action='store_true',
                        help='If set, calculate and log the number of zeros in gradient.')
-    group.add_argument('--log-throughput', action='store_true',
-                       help='If set, calculate and log throughput per GPU.')
+    group.add_argument('--log-throughput', action='store_false',
+                       help='If set, calculate and log throughput per GPU.') # store_true
     group.add_argument('--log-progress', action='store_true',
                        help='If set, log progress (in terms of number of processed tokens and '
                        'number of floating-point operations) to progress.txt file in checkpoint '
