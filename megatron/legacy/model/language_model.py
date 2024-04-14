@@ -384,6 +384,7 @@ class TransformerLanguageModel(MegatronModule):
         # Encoder (usually set to True, False if part of an encoder-decoder
         # architecture and in encoder-only stage).
         if self.add_encoder:
+            config.attention_softmax_in_fp32 = True
             self.encoder = ParallelTransformer(
                 config,
                 model_type=args.model_type if not args.retro_add_retriever \
@@ -399,6 +400,7 @@ class TransformerLanguageModel(MegatronModule):
         # Decoder (usually set to False, True if part of an encoder-decoder
         # architecture and in decoder-only stage).
         if self.add_decoder:
+            config.attention_softmax_in_fp32 = True
             self.decoder = ParallelTransformer(
                 config,
                 model_type=args.model_type,
