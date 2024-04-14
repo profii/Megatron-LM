@@ -813,8 +813,8 @@ def _add_logging_args(parser):
                        help='Size of the tensorboard queue for pending events '
                        'and summaries before one of the ‘add’ calls forces a '
                        'flush to disk.')
-    group.add_argument('--log-timers-to-tensorboard', action='store_true',
-                       help='If set, write timers to tensorboard.')
+    group.add_argument('--log-timers-to-tensorboard', action='store_false',
+                       help='If set, write timers to tensorboard.') # store_true
     group.add_argument('--log-batch-size-to-tensorboard', action='store_true',
                        help='If set, write batch-size to tensorboard.')
     group.add_argument('--no-log-learnig-rate-to-tensorboard',
