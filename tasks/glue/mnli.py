@@ -7,7 +7,7 @@ from tasks.data_utils import clean_text
 from .data import GLUEAbstractDataset
 
 
-LABELS = {'contradiction': 0, 'entailment': 1, 'neutral': 2}
+LABELS = {'0': 0, '1': 1, '2': 2}
 
 
 class MNLIDataset(GLUEAbstractDataset):
