@@ -208,7 +208,7 @@ def _train(model, optimizer, opt_param_scheduler, forward_step,
             saved_checkpoint = False
             if args.save and args.save_interval and \
                iteration % args.save_interval == 0:
-                save_checkpoint(iteration, model, optimizer, opt_param_scheduler)
+                save_checkpoint(iteration, model, optimizer, opt_param_scheduler, args.num_floating_point_operations_so_far)
                 saved_checkpoint = True
 
             # Evaluation
@@ -221,14 +221,14 @@ def _train(model, optimizer, opt_param_scheduler, forward_step,
             # Exiting based on iterations
             if args.exit_interval and iteration % args.exit_interval == 0:
                 if not saved_checkpoint:
-                    save_checkpoint(iteration, model, optimizer, opt_param_scheduler)
+                    save_checkpoint(iteration, model, optimizer, opt_param_scheduler, args.num_floating_point_operations_so_far)
                 torch.distributed.barrier()
                 print_rank_0('exiting program at iteration {}'.format(iteration))
                 sys.exit()
 
         # Checkpointing at the end of each epoch.
         if args.save:
-            save_checkpoint(iteration, model, optimizer, opt_param_scheduler)
+            save_checkpoint(iteration, model, optimizer, opt_param_scheduler, args.num_floating_point_operations_so_far)
 
         # Callback at the end of each epoch.
         if end_of_epoch_callback is not None:
@@ -278,7 +278,7 @@ def finetune(train_valid_datasets_provider, model_provider,
         args.load = args.pretrained_checkpoint
         original_rng = args.no_load_rng
         args.no_load_rng = True
-        _ = load_checkpoint(model, None, None)
+        args.iteration, args.num_floating_point_operations_so_far = load_checkpoint(model, None, None) #############
         args.load = original_load
         args.no_load_rng = original_rng
         # This is critical when only model is loaded. We should make sure
