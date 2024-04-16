@@ -1088,18 +1088,17 @@ def send_backward_recv_forward(input_tensor_grads, tensor_shapes, config):
 
 
 def forward_backward_pipelining_without_interleaving(
-    *,
     forward_step_func,
     data_iterator: Union[Iterator, List[Iterator]],
     model: Union[torch.nn.Module, List[torch.nn.Module]],
     num_microbatches: int,
     seq_length: int,
     micro_batch_size: int,
-    decoder_seq_length: int = None,
     forward_only: bool = False,
+    decoder_seq_length: int = None,
     collect_non_loss_data: bool = False,
     first_val_step: bool = None,
-):
+): # *,
     """Run non-interleaved 1F1B schedule, with communication between pipeline
     stages.
 
