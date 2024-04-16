@@ -1202,7 +1202,7 @@ def evaluate(forward_step_func,
 
             forward_backward_func = get_forward_backward_func()
             # Don't care about timing during evaluation
-            config.timers = None
+            # config.timers = None
             loss_dicts = forward_backward_func(
                 forward_step_func=forward_step_func,
                 data_iterator=data_iterator,
@@ -1212,7 +1212,7 @@ def evaluate(forward_step_func,
                 micro_batch_size=args.micro_batch_size,
                 decoder_seq_length=args.decoder_seq_length,
                 forward_only=True)
-            config.timers = get_timers()
+            # config.timers = get_timers()
 
             # Empty unused memory
             if args.empty_unused_memory_level >= 1:
