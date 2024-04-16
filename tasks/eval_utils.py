@@ -11,7 +11,7 @@ import torch
 from megatron.training import get_args
 from megatron.training import print_rank_last, is_last_rank
 from megatron.core import mpu
-from megatron.core.pipeline_parallel.schedules import get_forward_backward_func
+from megatron.core.pipeline_parallel.schedules import get_forward_backward_func, forward_backward_pipelining_without_interleaving
 # from megatron.schedules import get_forward_backward_func
 from tasks.finetune_utils import build_data_loader
 from tasks.finetune_utils import process_batch
@@ -68,7 +68,7 @@ def calculate_correct_answers(name, model, dataloader,
     """Calculate correct over total answers and return prediction if the
     `output_predictions` is true."""
     args = get_args()
-    forward_backward_func = get_forward_backward_func()
+    #forward_backward_func = get_forward_backward_func()
     start_time = time.time()
     for m in model:
         m.eval()
@@ -140,9 +140,11 @@ def calculate_correct_answers(name, model, dataloader,
             # ... applying sample_multiplier if necessary
             args.micro_batch_size = actual_batch_size * sample_multiplier
             args.global_batch_size = actual_batch_size * sample_multiplier * num_micro_batches
-
-            loss_dicts = forward_backward_func(correct_answers_forward_step, batch, model, num_micro_batches, args.seq_length,
-                                               args.micro_batch_size, forward_only=True) # optimizer=None, timers=None, 
+            
+            loss_dicts = forward_backward_pipelining_without_interleaving(correct_answers_forward_step, batch, model, num_micro_batches, args.seq_length,
+                                               args.micro_batch_size, forward_only=True)
+            #loss_dicts = forward_backward_func(correct_answers_forward_step, batch, model,
+            #                                   optimizer=None, timers=None, forward_only=True)
 
             for loss_dict in loss_dicts:
                 if output_predictions:
