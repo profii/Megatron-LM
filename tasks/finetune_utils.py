@@ -196,7 +196,7 @@ def _train(model, optimizer, opt_param_scheduler, forward_step,
                                               iteration,
                                               optimizer.get_loss_scale().item(),
                                               report_memory_flag, skipped_iter,
-                                              grad_norm, params_norm, num_zeros_in_grad):
+                                              grad_norm, params_norm, num_zeros_in_grad)
 
             # Autoresume
             if args.adlr_autoresume and \
